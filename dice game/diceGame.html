@@ -9,16 +9,16 @@
     <style>
         .container {
             width: 70%;
-            margin: auto;
             text-align: center;
             position: absolute;
-            top: 200px;
-            bottom: 0;
-            left: 0;
-            right: 0;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+
         }
 
         .dice {
+            width: 30%;
             text-align: center;
             display: inline-block;
             margin: 10px;
@@ -36,10 +36,6 @@
             font-size: 4.5rem;
             color: #4ecca3;
             text-align: center;
-        }
-
-        img {
-            width: 100%;
         }
 
         .container-bottom {
@@ -70,73 +66,73 @@
         }
 
         input {
-            width: 10%;
+            width: 40%;
         }
     </style>
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
 </head>
 
 <body>
 
     <div class="container">
-        <h1>Let's Play</h1>
-        <div>
-            <input type="text" placeholder="Enter any num" id="userNumber1">
-        </div>
+        <h1>Let's Play The Game</h1>
+
         <div class="dice">
+            <div> <input type="text" placeholder="Enter any num" id="userNumber1"></div><p></p>
             <img src="dice6.png" alt="dice 6" class="img1">
         </div>
-        <div>
-            <input type="text" placeholder="Enter any num" id="userNumber2">
-        </div>
+
         <div class="dice">
+            <div><input type="text" placeholder="Enter any num" id="userNumber2"></div><p></p>
             <img src="dice6.png" alt="dice 6" class="img2">
         </div>
 
         <div class="container-bottom">
-            <button type="button" class="btn" onclick="rollTheDice()">Roll The Dice</button>
+            <button type="button" class="btn" id="rollButton">Roll The Dice</button>
         </div>
     </div>
 
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
+    <script>
+     //------------- event handling----------------
+
+        $(document).ready(function () {
+            $("#rollButton").click(function () {
+                rollTheDice();
+            });
+        });
+
+        function rollTheDice() {
+            let diceNum1 = $(".img1");
+            let diceNum2 = $(".img2");
+
+            diceNum1.attr("src", "dicescroll.gif");
+            diceNum2.attr("src", "dicescroll.gif");
+
+            let result = $("h1");
+            result.html("");
+
+            setTimeout(() => {
+                let Unum1 = parseInt($('#userNumber1').val());
+                let Unum2 = parseInt($('#userNumber2').val());
+
+                let randomNum1 = Math.floor(Math.random() * 6) + 1;
+                let randomNum2 = Math.floor(Math.random() * 6) + 1;
+
+                diceNum1.attr("src", "dice" + randomNum1 + '.png');
+                diceNum2.attr("src", "dice" + randomNum2 + '.png');
+
+                let addno1 = Unum1 + randomNum1;
+                let addno2 = Unum2 + randomNum2;
+                let finalNo = addno1 + addno2;
+                result.html("The sum: " + finalNo);
+
+            }, 1000);
+
+        }
+
+    </script>
 </body>
-
-<script>
-
-    function rollTheDice() {
-        // let diceNum1 = document.querySelector(".img1");
-        // let diceNum2 = document.querySelector(".img2");
-
-        let diceNum1 = $(".img1");
-        let diceNum2 = $(".img2");
-
-        // diceNum1.setAttribute("src", "dicescroll.gif");
-        // diceNum2.setAttribute("src", "dicescroll.gif");
-        diceNum1.attr("src", "dicescroll.gif");
-        diceNum2.attr("src", "dicescroll.gif");
-
-        // let Unum1 = parseInt(document.getElementById("userNumber1").value);
-        // let Unum2 = parseInt(document.getElementById("userNumber2").value);
-
-        let Unum1 = parseInt($('#userNumber1').val());
-        let Unum2 = parseInt($('#userNumber2').val());
-
-        let randomNum1 = Math.floor(Math.random() * 6) + 1;
-        let randomNum2 = Math.floor(Math.random() * 6) + 1;
-
-        diceNum1.attr("src", "dice" + randomNum1 + '.png');
-        diceNum2.attr("src", "dice" + randomNum2 + '.png');
-        
-        setTimeout(() => {
-            let addno1 = Unum1 + randomNum1;
-            let addno2 = Unum2 + randomNum2;
-            let finalNo = addno1 + addno2;
-            alert("sum : " + finalNo);
-
-        }, 1000);
-
-    }
-
-</script>
 
 </html>
